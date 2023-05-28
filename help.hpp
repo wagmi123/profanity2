@@ -16,7 +16,7 @@ usage: ./profanity2 [OPTIONS]
     --letters               Score on letters anywhere in hash.
     --numbers               Score on numbers anywhere in hash.
     --mirror                Score on mirroring from center.
-    --leading-doubles       Score on hashes leading with hexadecimal pairs
+    --zero-doubles          Score on hashes with zero doubles (bytes)
 
   Modes with arguments:
     --leading <single hex>  Score on hashes leading with given hex character.

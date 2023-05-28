@@ -677,11 +677,11 @@ __kernel void profanity_iterate(__global mp_number * const pDeltaX, __global mp_
 }
 
 void profanity_result_update(const size_t id, __global const uchar * const hash, __global result * const pResult, const uchar score, const uchar scoreMax) {
-	if (score && score > scoreMax) {
+	if (score && score >= scoreMax) {
 		uchar hasResult = atomic_inc(&pResult[score].found); // NOTE: If "too many" results are found it'll wrap around to 0 again and overwrite last result. Only relevant if global worksize exceeds MAX(uint).
 
 		// Save only one result for each score, the first.
-		if (hasResult == 0) {
+		if (true) { //if (hasResult == 0) {
 			pResult[score].foundId = id;
 
 			for (int i = 0; i < 20; ++i) {
@@ -845,11 +845,8 @@ __kernel void profanity_score_doubles(__global mp_number * const pInverse, __glo
 	int score = 0;
 
 	for (int i = 0; i < 20; ++i) {
-		if ((hash[i] == 0x00) || (hash[i] == 0x11) || (hash[i] == 0x22) || (hash[i] == 0x33) || (hash[i] == 0x44) || (hash[i] == 0x55) || (hash[i] == 0x66) || (hash[i] == 0x77) || (hash[i] == 0x88) || (hash[i] == 0x99) || (hash[i] == 0xAA) || (hash[i] == 0xBB) || (hash[i] == 0xCC) || (hash[i] == 0xDD) || (hash[i] == 0xEE) || (hash[i] == 0xFF)) {
-			++score;
-		}
-		else {
-			break;
+		if ((hash[i] == 0x00)) {
+					++score;
 		}
 	}
 

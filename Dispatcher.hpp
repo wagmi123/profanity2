@@ -116,6 +116,7 @@ class Dispatcher {
 		const size_t m_size;
 		cl_uchar m_clScoreMax;
 		cl_uchar m_clScoreQuit;
+		cl_uchar m_foundMax;
 
 		std::vector<Device *> m_vDevices;
 

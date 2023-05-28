@@ -209,6 +209,7 @@ Dispatcher::Dispatcher(cl_context & clContext, cl_program & clProgram, const Mod
 	, m_inverseSize(inverseSize)
 	, m_size(inverseSize*inverseMultiple)
 	, m_clScoreMax(mode.score)
+	, m_foundMax(0)
 	, m_clScoreQuit(clScoreQuit)
 	, m_eventFinished(NULL)
 	, m_countPrint(0)
@@ -434,8 +435,16 @@ void Dispatcher::dispatch(Device & d) {
 }
 
 void Dispatcher::handleResult(Device & d) {
-	for (auto i = PROFANITY_MAX_SCORE; i > m_clScoreMax; --i) {
+	for (auto i = PROFANITY_MAX_SCORE; i >= m_clScoreMax; --i) {
 		result & r = d.m_memResult[i];
+
+		if (i == m_clScoreMax) {
+			if (r.found > m_foundMax) {
+				m_foundMax++;
+				printResult(d.m_clSeed, d.m_round, r, i, timeStart, m_mode);
+			}
+			break;
+		}
 
 		if (r.found > 0 && i >= d.m_clScoreMax) {
 			d.m_clScoreMax = i;
@@ -444,6 +453,7 @@ void Dispatcher::handleResult(Device & d) {
 			std::lock_guard<std::mutex> lock(m_mutex);
 			if (i >= m_clScoreMax) {
 				m_clScoreMax = i;
+				m_foundMax = 1;
 
 				if (m_clScoreQuit && i >= m_clScoreQuit) {
 					m_quit = true;

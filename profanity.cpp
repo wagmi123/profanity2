@@ -180,7 +180,7 @@ int main(int argc, char * * argv) {
 		argp.addSwitch('6', "leading-range", bModeLeadingRange);
 		argp.addSwitch('7', "range", bModeRange);
 		argp.addSwitch('8', "mirror", bModeMirror);
-		argp.addSwitch('9', "leading-doubles", bModeDoubles);
+		argp.addSwitch('9', "zero-doubles", bModeDoubles);
 		argp.addSwitch('m', "min", rangeMin);
 		argp.addSwitch('M', "max", rangeMax);
 		argp.addMultiSwitch('s', "skip", vDeviceSkipIndex);

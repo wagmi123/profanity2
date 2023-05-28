@@ -2,6 +2,8 @@
 
 Profanity is a high performance (probably the fastest!) vanity address generator for Ethereum. Create cool customized addresses that you never realized you needed! Recieve Ether in style! Wow!
 
+**This fork prints scores >= maxScore, and also replaces --leading-doubles with --zero-doubles, which looks for zero bytes, for important gas savings :)**
+
 ![Screenshot](/img/screenshot.png?raw=true "Wow! That's a lot of zeros!")
 
 # Important to know
@@ -55,7 +57,7 @@ usage: ./profanity2 [OPTIONS]
     --letters               Score on letters anywhere in hash.
     --numbers               Score on numbers anywhere in hash.
     --mirror                Score on mirroring from center.
-    --leading-doubles       Score on hashes leading with hexadecimal pairs
+    --zero-doubles          Score on hashes with zero doubles (bytes)
 
   Modes with arguments:
     --leading <single hex>  Score on hashes leading with given hex character.
